@@ -168,7 +168,7 @@ class xxHash32(object):
         h32.value ^= h32.value >> 13;
         h32.value *= PRIME32_3;
         h32.value ^= h32.value >> 16;
-
+        
         return h32.value
 
     def CalculateHash32(self, buf, length, seed=0):
@@ -184,7 +184,7 @@ class xxHash32(object):
         
         h32 = ctypes.c_uint()
 
-        _state = self._state
+        #_state = self._state
         
         PRIME32_1 = xxHash32.__PRIME32_1
         PRIME32_2 = xxHash32.__PRIME32_2
@@ -222,14 +222,14 @@ class xxHash32(object):
                 index.value += 4
                 v4.value = self.CalcSubHash(v4, buf, indexPtr)
                 index.value += 4
-
+            
             h32.value = self.RotateLeft(v1.value, 1) + self.RotateLeft(v2.value, 7) + self.RotateLeft(v3.value, 12) + self.RotateLeft(v4.value, 18)
-           
+            
         else:
             h32.value = seed + PRIME32_5
 
         h32.value += length
-    
+        
         while (index.value <= length - 4):
             val = ctypes.c_int(0)
             valPtr = ctypes.pointer(val)
@@ -240,12 +240,12 @@ class xxHash32(object):
             h32.value += (val.value * PRIME32_3)
             h32.value = self.RotateLeft(h32.value, 17) * PRIME32_4
             index.value += 4
-
+        
         while (index.value < length):
             h32.value += (ord(buf.value[index.value]) * PRIME32_5)
             h32.value = self.RotateLeft(h32.value, 11) * PRIME32_1
             index.value += 1
-
+        
         h32.value ^= h32.value >> 15;
         h32.value *= PRIME32_2;
         h32.value ^= h32.value >> 13;
@@ -280,4 +280,4 @@ class xxHash32(object):
     
 
 if __name__ == "__main__":
-    pass
+    xxHash = xxHash32()

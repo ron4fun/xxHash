@@ -1,7 +1,7 @@
 #xxHashC++ Class#
 
 
-A pure Python implementation of [xxHash](http://code.google.com/p/xxhash/)
+A Python implementation of [xxHash](http://code.google.com/p/xxhash/)
 
 
 Example
@@ -14,6 +14,8 @@ Example
     >>> hash.Init()
     >>> hash.Update("hello", 5)
     >>> hash.Digest() == hash.CalculateHash32("hello", 5)
+    True
+	>>> 
    
 
 License
